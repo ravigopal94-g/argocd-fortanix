@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: secret-rotate
+  namespace: myapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: secret-rotate
+  template:
+    metadata:
+      labels:
+        app: secret-rotate
+    spec:
+      containers:
+        - name: secret-rotate
+          image: nginx
+          volumeMounts:
+            - mountPath: "/mnt/secrets"
+              name: dsm-secrets-rotate
+              readOnly: true
+      volumes:
+        - name: dsm-secrets-rotate
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "fortanix-secret-provider"
