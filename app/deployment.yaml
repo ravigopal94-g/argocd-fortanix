@@ -26,4 +26,4 @@ spec:
             driver: secrets-store.csi.k8s.io
             readOnly: true
             volumeAttributes:
-              secretProviderClass: "fortanix-csi-provider"
+              secretProviderClass: "fortanix-secret-provider"
