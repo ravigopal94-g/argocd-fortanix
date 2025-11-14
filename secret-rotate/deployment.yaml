@@ -18,10 +18,10 @@ spec:
           image: nginx
           volumeMounts:
             - mountPath: "/mnt/secrets"
-              name: dsm-secrets
+              name: dsm-secrets-rotate
               readOnly: true
       volumes:
-        - name: dsm-secrets
+        - name: dsm-secrets-rotate
           csi:
             driver: secrets-store.csi.k8s.io
             readOnly: true
