@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: secret-rotate
-  namespace: rotate
+  namespace: ftx-gcash-sm
 spec:
   replicas: 1
   selector:
