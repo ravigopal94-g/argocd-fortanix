@@ -1,1 +1,29 @@
-
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fortanix-gcash-sm
+  namespace: ftx-gcash-sm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fortanix-gcash-sm
+  template:
+    metadata:
+      labels:
+        app: fortanix-gcash-sm
+    spec:
+      containers:
+        - name: fortanix-gcash-sm
+          image: nginx
+          volumeMounts:
+            - mountPath: "/mnt/secrets"
+              name: dsm-secrets-rotate
+              readOnly: true
+      volumes:
+        - name: fortanix-gcash-sm
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "fortanix-secret-provider-demo"
